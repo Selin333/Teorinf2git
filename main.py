@@ -176,3 +176,73 @@ def decoding():
 
     print(decoded_primal_text)
     return decoded_primal_text
+def get_kol_sum(line2):
+
+    lable1 = line2
+    if len(lable1) == 0:
+        error = QMessageBox()
+        error.setIcon(QMessageBox.Critical)
+        error.setText("Ошибка")
+        error.setInformativeText("Пустое поле")
+        error.setWindowTitle("Ой-йой")
+        error.exec_()
+    if not lable1.isdigit():
+        error = QMessageBox()
+        error.setIcon(QMessageBox.Critical)
+        error.setText("Ошибка")
+        error.setInformativeText("введите цифры")
+        error.setWindowTitle("Ой-йой")
+        error.exec_()
+    global kol_sum
+    kol_sum = int(line2)
+    print(kol_sum)
+
+def get_summators(label4):
+    lable2 = label4
+    if len(lable2) == 0:
+        error = QMessageBox()
+        error.setIcon(QMessageBox.Critical)
+        error.setText("Ошибка")
+        error.setInformativeText("Пустое поле")
+        error.setWindowTitle("Ой-йой")
+        error.exec_()
+
+    elif not lable2.isdigit():
+        error = QMessageBox()
+        error.setIcon(QMessageBox.Critical)
+        error.setText("Ошибка")
+        error.setInformativeText("Только цифры!")
+        error.setWindowTitle("Ой-йой")
+        error.exec_()
+
+    else:
+        global b
+        global summators
+        summators_str.append(label4)
+        b += 1
+        if b != kol_sum:
+            error = QMessageBox()
+            error.setIcon(QMessageBox.Warning)
+            error.setText("!!!")
+            error.setInformativeText("не все сумматоры введены")
+            error.setWindowTitle("Ой-йой")
+            error.exec_()
+        if b == kol_sum:
+            error = QMessageBox()
+            error.setIcon(QMessageBox.Information)
+            error.setText("!!!")
+            error.setInformativeText("Поля введены")
+            error.setWindowTitle("Ой-йой")
+            error.exec_()
+        summators = []
+        for i in range(len(summators_str)):
+            summators_list = []
+            for j in range(len(summators_str[i])):
+                summators_list.append(int(summators_str[i][j]))
+            summators.append(summators_list)
+        return summators
+
+app = QtWidgets.QApplication([])
+application = mywindow()
+application.show()
+sys.exit(app.exec())
