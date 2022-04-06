@@ -112,3 +112,67 @@ def encoding(primal_text):
     print(encoded_string_finished)
 
     return encoded_string_finished2
+def decoding():
+    # обьявляем переменные
+    global registrs
+    registrs = []
+    kol_registrov = 0
+    global decoded_string
+    decoded_string = ''
+    # находим кол-во регистров по максимальному элементу в сумматоре и обнуляем их
+    for i in summators:
+        if kol_registrov < max(i):
+            kol_registrov = max(i)
+
+    for i in range(kol_registrov + 1):
+        registrs.append(0)
+# функция сдвига регистров в парво
+    def append_zero():
+        for i in reversed(range(len(registrs))):
+            registrs[i] = registrs[i - 1]
+        registrs[0] = 0
+        return registrs
+
+    # функция создание проверочных битов
+    def calc_prov_bits():
+        global proverochnie_bits
+        proverochnie_bits = ''
+        for j in range(len(summators)):
+            c = 0
+            for m in range(len(summators[j])):
+                c += registrs[summators[j][m]]
+            if c % 2 == 1:
+                proverochnie_bits += ''.join('1')
+            elif c % 2 == 0:
+                proverochnie_bits += ''.join('0')
+        return proverochnie_bits
+
+    # функция декодирование строки
+    for i in range(len(encoded_string_finished)):
+        append_zero()
+        calc_prov_bits()
+        if proverochnie_bits != encoded_string_finished[i]:
+            registrs[0] = 1
+            decoded_string += ''.join('1')
+        elif proverochnie_bits == encoded_string_finished[i]:
+            decoded_string += ''.join('0')
+
+    print(decoded_string)
+# функции перевода двоичной строки обратно в текст
+    if decoded_string != spisok_text_to_bit:
+        dlina = len(decoded_string) - len(spisok_text_to_bit)
+        decoded_string = decoded_string[:-dlina]
+
+    def text_from_bits(binstring, encoding='utf-8', errors='surrogatepass'):
+        n = int(binstring, 2)
+        return int2bytes(n).decode(encoding, errors)
+
+    def int2bytes(i):
+        hex_string = '%x' % i
+        n = len(hex_string)
+        return binascii.unhexlify(hex_string.zfill(n + (n & 1)))
+
+    decoded_primal_text = text_from_bits(decoded_string)
+
+    print(decoded_primal_text)
+    return decoded_primal_text
