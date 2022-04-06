@@ -17,6 +17,7 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self.ui.pushButton.clicked.connect(self.btnClicked)
         self.ui.pushButton_2.clicked.connect(self.btnClicked_2)
+
     def btnClicked(self):
 
         get_kol_sum(self.ui.lineEdit_2.text())
@@ -100,18 +101,20 @@ def encoding(primal_text):
     # Собираем в красивую конструкцию и выводим из под функции
     global encoded_string_finished
     encoded_string_finished = ''
+    encoded_string_finished2 = ''
     print(encoded_string)
     for j in range(len(encoded_string)):
-        encoded_string_finished += ''.join(encoded_string[j])
+        encoded_string_finished += ''.join(encoded_string[j]) + '.'
+        encoded_string_finished2 += ''.join(encoded_string[j])
     # каждый символ заносим в функцию возращая список закодированных символов
-    encoded_string_finished2 = encoded_string_finished[:-1]
+    encoded_string_finished2 = encoded_string_finished2[:-1]
 
     encoded_string_finished = encoded_string_finished[:-1]
-    print(encoded_string_finished)
     encoded_string_finished = encoded_string_finished.split('.')
     print(encoded_string_finished)
 
     return encoded_string_finished2
+
 def decoding():
     # обьявляем переменные
     global registrs
@@ -176,6 +179,7 @@ def decoding():
 
     print(decoded_primal_text)
     return decoded_primal_text
+
 def get_kol_sum(line2):
 
     lable1 = line2
