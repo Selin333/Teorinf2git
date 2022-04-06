@@ -1,16 +1,19 @@
-# This is a sample Python script.
+from PyQt5.QtWidgets import QMessageBox, QVBoxLayout, QLabel
+from PyQt5 import QtWidgets
+from PyQt5.QtWinExtras import QtWin
+import binascii
+myappid = 'kodirovka'
+QtWin.setCurrentProcessExplicitAppUserModelID(myappid)
+from calc import Ui_MainWindow  # импорт ui
+import sys
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+summators_str = []
+global b
+b = 0
+class mywindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(mywindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.ui.pushButton.clicked.connect(self.btnClicked)
+        self.ui.pushButton_2.clicked.connect(self.btnClicked_2)
